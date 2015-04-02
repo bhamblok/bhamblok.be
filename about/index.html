@@ -21,7 +21,7 @@
 
 
 
-    <meta name="keywords" content="Hexo,next" />
+    <meta name="keywords" content="JS,nodeJS,IO" />
 
 
 
@@ -32,11 +32,13 @@
 
 
 
-  <title> 歸檔 // bhamblok.io </title>
+  <title>
+  about // bhamblok.io
+</title>
 </head>
 
 <body>
-  <div class="container one-column  page-archive ">
+  <div class="container one-column ">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -59,15 +61,7 @@
       <li class="menu-item menu-item-home">
         <a href="/">
           <i class="menu-item-icon icon-home"></i> <br />
-          首頁
-        </a>
-      </li>
-    
-      
-      <li class="menu-item menu-item-archives">
-        <a href="/archives">
-          <i class="menu-item-icon icon-archives"></i> <br />
-          歸檔
+          Home
         </a>
       </li>
     
@@ -75,7 +69,15 @@
       <li class="menu-item menu-item-tags">
         <a href="/tags">
           <i class="menu-item-icon icon-tags"></i> <br />
-          標籤
+          Tags
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          About
         </a>
       </li>
     
@@ -95,72 +97,12 @@
           <div id="posts" class="posts-collapse">
             
 
-  <span class="archive-move-on"></span>
-
-  <span class="archive-page-counter">
-    
-    
-     
-    
-    嗯..! 目前共計 1 篇文章。 繼續努力。
-  </span>
+  
+  
+    <p>Welcome to Bob’s Blog!</p>
 
   
 
-    
-    
-    
-
-    
-      
-      <div class="collection-title">
-        <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
-      </div>
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/03/31/hello-world/">
-                Hello World test
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            03-31
-          
-        </span>
-
-        
-
-        
-          
-        
-      </div>
-    </div>
-
-    
-
-    
-  </div>
-
-
-
-  
 
           </div>
 
@@ -190,15 +132,15 @@
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
           <span class="site-state-item-count">1</span>
-          <span class="site-state-item-name">文章</span>
+          <span class="site-state-item-name">posts</span>
         </div>
         <div class="site-state-item site-state-tags">
             <span class="site-state-item-count">0</span>
-            <span class="site-state-item-name">標籤</span>
+            <span class="site-state-item-name">tags</span>
         </div>
         <div class="site-state-item site-state-pages">
-            <span class="site-state-item-count">0</span>
-            <span class="site-state-item-name">頁面</span>
+            <span class="site-state-item-count">2</span>
+            <span class="site-state-item-name">pages</span>
         </div>
       </div>
 
@@ -234,17 +176,6 @@
   <span class="author">Bob Hamblok</span>
 </div>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
-</div>
-
-<div class="theme-info">
-  主題 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT
-  </a>
-</div>
-
 
 
       </div>
@@ -257,12 +188,6 @@
 
   
   
-  
-    <script type="text/javascript">
-      postMotionOptions = {stagger: 100, drag: true};
-    </script>
-  
-
 
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
@@ -351,6 +276,9 @@
         { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
         { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
         
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
         { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
       ]);
       $('.menu-item').velocity('transition.slideDownIn', {display: null});
@@ -432,12 +360,6 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
-
 
   
 

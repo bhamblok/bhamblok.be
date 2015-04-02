@@ -21,7 +21,7 @@
 
 
 
-    <meta name="keywords" content="Hexo,next" />
+    <meta name="keywords" content="JS,nodeJS,IO" />
 
 
 
@@ -32,7 +32,7 @@
 
 
 
-  <title> 歸檔 // bhamblok.io </title>
+  <title> Archive // bhamblok.io </title>
 </head>
 
 <body>
@@ -59,15 +59,7 @@
       <li class="menu-item menu-item-home">
         <a href="/">
           <i class="menu-item-icon icon-home"></i> <br />
-          首頁
-        </a>
-      </li>
-    
-      
-      <li class="menu-item menu-item-archives">
-        <a href="/archives">
-          <i class="menu-item-icon icon-archives"></i> <br />
-          歸檔
+          Home
         </a>
       </li>
     
@@ -75,7 +67,15 @@
       <li class="menu-item menu-item-tags">
         <a href="/tags">
           <i class="menu-item-icon icon-tags"></i> <br />
-          標籤
+          Tags
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          About
         </a>
       </li>
     
@@ -102,7 +102,7 @@
     
      
     
-    嗯..! 目前共計 1 篇文章。 繼續努力。
+    Um..! 1 post. Keep on posting.
   </span>
 
   
@@ -130,8 +130,8 @@
           
           
             
-              <a class="post-title-link" href="/2015/03/31/hello-world/">
-                Hello World test
+              <a class="post-title-link" href="/2015/04/02/hello-world/">
+                Time to start blogging
               </a>
             
           
@@ -141,7 +141,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            03-31
+            04-02
           
         </span>
 
@@ -190,15 +190,15 @@
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
           <span class="site-state-item-count">1</span>
-          <span class="site-state-item-name">文章</span>
+          <span class="site-state-item-name">posts</span>
         </div>
         <div class="site-state-item site-state-tags">
             <span class="site-state-item-count">0</span>
-            <span class="site-state-item-name">標籤</span>
+            <span class="site-state-item-name">tags</span>
         </div>
         <div class="site-state-item site-state-pages">
-            <span class="site-state-item-count">0</span>
-            <span class="site-state-item-name">頁面</span>
+            <span class="site-state-item-count">2</span>
+            <span class="site-state-item-name">pages</span>
         </div>
       </div>
 
@@ -232,17 +232,6 @@
     <i class="icon-heart"></i>
   </span>
   <span class="author">Bob Hamblok</span>
-</div>
-
-<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
-</div>
-
-<div class="theme-info">
-  主題 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT
-  </a>
 </div>
 
 
@@ -350,6 +339,9 @@
       $.Velocity.RunSequence([
         { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
         { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
         
         { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
       ]);
