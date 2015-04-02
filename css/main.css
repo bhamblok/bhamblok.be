@@ -1053,7 +1053,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffc3d1;
+  background: #ff0fb6;
 }
 .sidebar-nav {
   margin: 0;
@@ -2056,6 +2056,9 @@ hr {
 }
 .header {
   background: #f5f3ed;
+}
+a:hover {
+  border-bottom-color: #9c0;
 }
 .logo-line-before i,
 .logo-line-after i {
