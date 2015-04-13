@@ -616,13 +616,13 @@ td {
 }
 .post pre,
 .post .highlight {
-  background: #272822;
+  background: #f7f7f7;
   margin: 20px 0;
   padding: 15px;
   overflow: auto;
   font-size: 13px;
   font-weight: bold;
-  color: #ccc;
+  color: #4d4d4c;
   line-height: 1.8;
 }
 .post .highlight .gutter pre,
@@ -658,7 +658,7 @@ td {
 }
 .post .highlight figcaption {
   font-size: 0.85em;
-  color: #999;
+  color: #8e908c;
   line-height: 1em;
   margin-bottom: 1em;
 }
@@ -685,7 +685,7 @@ td {
   border-style: solid;
   border-color: $baseBorderColor;
   border-width: 1px 0;
-  background: #272822;
+  background: #f7f7f7;
   padding: 15px 40px 15px 15px;
 }
 .post .gist .gist-file {
@@ -711,8 +711,8 @@ td {
   border: none;
 }
 .post .gist .gist-file .gist-meta {
-  background: #272822;
-  color: #999;
+  background: #f7f7f7;
+  color: #8e908c;
   font: 13px Lato, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   text-shadow: 0 0;
   padding: 0;
@@ -727,7 +727,7 @@ td {
   text-decoration: underline;
 }
 pre .comment {
-  color: #999;
+  color: #8e908c;
 }
 pre .variable,
 pre .attribute,
@@ -741,7 +741,7 @@ pre .html .doctype,
 pre .css .id,
 pre .css .class,
 pre .css .pseudo {
-  color: #f26;
+  color: #c82829;
 }
 pre .number,
 pre .preprocessor,
@@ -749,11 +749,11 @@ pre .built_in,
 pre .literal,
 pre .params,
 pre .constant {
-  color: #fc6;
+  color: #f5871f;
 }
 pre .ruby .class .title,
 pre .css .rules .attribute {
-  color: #9c0;
+  color: #718c00;
 }
 pre .string,
 pre .value,
@@ -761,11 +761,11 @@ pre .inheritance,
 pre .header,
 pre .ruby .symbol,
 pre .xml .cdata {
-  color: #9c0;
+  color: #718c00;
 }
 pre .title,
 pre .css .hexcolor {
-  color: #f39;
+  color: #3e999f;
 }
 pre .function,
 pre .python .decorator,
@@ -775,11 +775,11 @@ pre .ruby .title .keyword,
 pre .perl .sub,
 pre .javascript .title,
 pre .coffeescript .title {
-  color: #69c;
+  color: #4271ae;
 }
 pre .keyword,
 pre .javascript .function {
-  color: #6cc;
+  color: #8959a8;
 }
 html,
 body {
@@ -1054,7 +1054,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f9246e;
+  background: #ff29a8;
 }
 .sidebar-nav {
   margin: 0;
