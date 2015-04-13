@@ -616,11 +616,12 @@ td {
 }
 .post pre,
 .post .highlight {
-  background: #2d2d2d;
+  background: #272822;
   margin: 20px 0;
   padding: 15px;
   overflow: auto;
   font-size: 13px;
+  font-weight: bold;
   color: #ccc;
   line-height: 1.8;
 }
@@ -684,7 +685,7 @@ td {
   border-style: solid;
   border-color: $baseBorderColor;
   border-width: 1px 0;
-  background: #2d2d2d;
+  background: #272822;
   padding: 15px 40px 15px 15px;
 }
 .post .gist .gist-file {
@@ -710,7 +711,7 @@ td {
   border: none;
 }
 .post .gist .gist-file .gist-meta {
-  background: #2d2d2d;
+  background: #272822;
   color: #999;
   font: 13px Lato, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   text-shadow: 0 0;
@@ -740,7 +741,7 @@ pre .html .doctype,
 pre .css .id,
 pre .css .class,
 pre .css .pseudo {
-  color: #f2777a;
+  color: #f26;
 }
 pre .number,
 pre .preprocessor,
@@ -748,11 +749,11 @@ pre .built_in,
 pre .literal,
 pre .params,
 pre .constant {
-  color: #f99157;
+  color: #fc6;
 }
 pre .ruby .class .title,
 pre .css .rules .attribute {
-  color: #9c9;
+  color: #9c0;
 }
 pre .string,
 pre .value,
@@ -760,11 +761,11 @@ pre .inheritance,
 pre .header,
 pre .ruby .symbol,
 pre .xml .cdata {
-  color: #9c9;
+  color: #9c0;
 }
 pre .title,
 pre .css .hexcolor {
-  color: #6cc;
+  color: #f39;
 }
 pre .function,
 pre .python .decorator,
@@ -778,7 +779,7 @@ pre .coffeescript .title {
 }
 pre .keyword,
 pre .javascript .function {
-  color: #c9c;
+  color: #6cc;
 }
 html,
 body {
@@ -1053,7 +1054,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #0b162e;
+  background: #f9246e;
 }
 .sidebar-nav {
   margin: 0;
@@ -1782,6 +1783,9 @@ body {
 }
 .page-post-detail .comments {
   overflow: hidden;
+}
+.post-body h1 {
+  margin: 2em 0 1em 0;
 }
 .category-all-page .category-all-title {
   text-align: center;
