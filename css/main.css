@@ -1054,7 +1054,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #a3ff2f;
+  background: #ff6f6b;
 }
 .sidebar-nav {
   margin: 0;
@@ -2067,4 +2067,17 @@ hr {
 .logo-line-before i,
 .logo-line-after i {
   background: #9c0;
+}
+.links-of-author a {
+  color: #999;
+}
+.links-of-author a:hover {
+  color: #bbb;
+}
+.links-of-author a:before {
+  background-color: #9c0;
+}
+.site-description {
+  padding: 0 2em;
+  color: #bbb;
 }
