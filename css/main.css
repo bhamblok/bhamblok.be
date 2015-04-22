@@ -1054,7 +1054,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #867828;
+  background: #57f6d4;
 }
 .sidebar-nav {
   margin: 0;
@@ -2092,4 +2092,17 @@ hr {
 }
 .feed-link a i {
   color: #9c0;
+}
+.sidebar-nav .sidebar-nav-active {
+  color: #9c0;
+  border-bottom-color: #9c0;
+}
+.post-toc .nav .active-current > a,
+.sidebar-nav .sidebar-nav-active:hover,
+.post-toc .nav .active-current > a:hover {
+  color: #9c0;
+}
+.menu .menu-item a,
+.page-post-detail .sidebar-toggle-line {
+  background-color: #9c0;
 }
