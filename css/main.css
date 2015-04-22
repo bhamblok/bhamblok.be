@@ -1054,7 +1054,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff6f6b;
+  background: #0dffff;
 }
 .sidebar-nav {
   margin: 0;
@@ -2080,4 +2080,14 @@ hr {
 .site-description {
   padding: 0 2em;
   color: #bbb;
+}
+.feed-link a {
+  color: #9c0;
+  border-color: #9c0;
+}
+.feed-link a:hover {
+  background: #9c0;
+}
+.feed-link a i {
+  color: #9c0;
 }
