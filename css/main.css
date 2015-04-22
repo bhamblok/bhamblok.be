@@ -1054,7 +1054,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #eee7ba;
+  background: #867828;
 }
 .sidebar-nav {
   margin: 0;
@@ -2070,6 +2070,7 @@ hr {
 }
 .links-of-author a {
   color: #999;
+  border: none;
 }
 .links-of-author a:hover {
   color: #bbb;
@@ -2083,6 +2084,7 @@ hr {
 }
 .feed-link a {
   color: #9c0;
+  border: none;
   border-color: #9c0;
 }
 .feed-link a:hover {
