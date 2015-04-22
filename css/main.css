@@ -1054,7 +1054,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #57f6d4;
+  background: #95ff7a;
 }
 .sidebar-nav {
   margin: 0;
@@ -2105,4 +2105,10 @@ hr {
 .menu .menu-item a,
 .page-post-detail .sidebar-toggle-line {
   background-color: #9c0;
+}
+.post pre,
+.post code {
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
 }

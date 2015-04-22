@@ -20,27 +20,13 @@
 
 
 
+	<meta name="keywords" content="javascript," />
 
-    <meta name="keywords" content="JS,nodeJS,IO" />
-
-
-
-    <link rel="alternate" href="/rss.xml" title="bhamblok.io" type="application/atom+xml" />
-
-
-
-    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.0" />
-
-
-
-
-  <title> bhamblok.io </title>
+  <title> Performance of Prototyping in Javascript // bhamblok.io </title>
 </head>
 
 <body>
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -99,7 +85,6 @@
           <div id="posts" class="posts-expand">
             
   
-    
 
   <div class="post post-type-normal ">
     <div class="post-header">
@@ -110,9 +95,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/04/22/performance-of-prototyping-in-javascript/">
-                Performance of Prototyping in Javascript
-              </a>
+              Performance of Prototyping in Javascript
             
           
         </h1>
@@ -149,8 +132,7 @@
         
 
         
-          
-            <h1 id="Performance_issues_you_say?">Performance issues you say?</h1><p>Imagine you have a lot of things, each represented by a javascript object, all having the same behaviour but with different property-values.<br>Of course you should make a class-object of it, and instantiate it over and over again.</p>
+          <h1 id="Performance_issues_you_say?">Performance issues you say?</h1><p>Imagine you have a lot of things, each represented by a javascript object, all having the same behaviour but with different property-values.<br>Of course you should make a class-object of it, and instantiate it over and over again.</p>
 <p>There are multiple ways to do this, but we recently discovered that <em>how</em> you do this, can make a <strong>HUGE</strong> difference. Just to mention, at neoScores, we reduced the time to calculate a full-blown orchestral score (comparable with a Mahler Symphony) from <strong>10 seconds per page</strong>, to only <strong>60 milliseconds(!!!) per page</strong>.</p>
 <h1 id="10_seconds_vs_60_milliseconds!?_What_did_we_do_wrong?">10 seconds vs 60 milliseconds!? What did we do wrong?</h1><p>We used to make a class-object, with a lot of properties and methods, like this:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Define our Thingy CLASS-Object</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Thingy</span><span class="params">(props)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span><span class="params">(value)</span> </span>&#123;</span><br><span class="line">		i += value;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// lots and lots more methods</span></span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>And we Instantiate one new Thingy-Object for each of our requested thingies<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;allOurThingies.length; i++) </span><br><span class="line">	<span class="keyword">new</span> Thingy(thingies[i]);</span><br></pre></td></tr></table></figure></p>
@@ -163,7 +145,6 @@
 <p>And it all gets realy interesting when you start combining this all with getters and setters!!!<br>You say what!? That’s for my next blog…</p>
 <p>Meanwhile, enjoy reading:<br><a href="http://javascript.crockford.com/prototypal.html" target="_blank" rel="external">http://javascript.crockford.com/prototypal.html</a></p>
 
-          
         
       </div>
     
@@ -181,135 +162,35 @@
         
 
         
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
 
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/04/12/welcome/">
-                It's time to start blogging
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            Posted on 2015-04-12
-          
-        </span>
-
-        
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/04/12/welcome/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/04/12/welcome/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>Hi there,</p>
-<p>It’s time to start blogging about the technical decisions, issues and problems we constantly overcome while building our beloved neoScores WebApp.</p>
-<blockquote>
-<p><strong>neoScores</strong> is one of those companies betting on the standards of the internet. Plain ol’ HTML, CSS and Javascript. We strongly believe in the potential and philosophy of the <em>openness</em> of the internet:</p>
-<ul>
-<li>everyone can use it,</li>
-<li>nobody is controlling it,</li>
-<li>it’s continuously evolving,</li>
-<li>browsers are auto-updating,</li>
-<li>offline use is perfectly possible,</li>
-<li>these days, it’s available on everything with a screen</li>
-</ul>
-</blockquote>
-<p>The gap between “Native apps” and “Web apps” is gone! Our friends at <a href="https://andyet.com/" target="_blank" rel="external">&amp;yet</a> are evangelising it as <a href="http://blog.andyet.com/2015/01/22/native-web-apps#native-web-apps" target="_blank" rel="external">“Native Web Apps” (http://blog.andyet.com)</a></p>
-<h1 id="Javascript">Javascript</h1><p>I’m starting this blog because I think I can share a lot of interesting javascript-knowledge about</p>
-<ul>
-<li>browser performance,</li>
-<li>the internet … “offline”</li>
-<li>webcomponents</li>
-<li>cross-[device|OS|browser]-related “bugs” we fixed,</li>
-<li>the frameworks we use (<a href="http://vanilla-js.com/" target="_blank" rel="external">Vanilla JS</a>, <a href="http://ampersandjs.com/" target="_blank" rel="external">Ampersand.js</a>, <a href="http://paperjs.org/" target="_blank" rel="external">Paper.js</a>, <a href="https://www.polymer-project.org" target="_blank" rel="external">Polymer</a>),</li>
-<li>our server-architecture in <a href="https://nodejs.org/" target="_blank" rel="external">Node.JS</a> on <a href="http://aws.amazon.com/" target="_blank" rel="external">Amazon AWS</a></li>
-<li><p>and a bit of fun like <a href="http://aem1k.com" target="_blank" rel="external">Minified JavaScript Craziness</a> by <em>Martin Kleppe</em> aka <a href="http://twitter.com/aemkei" target="_blank" rel="external">@aemkei</a></p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])</span><br><span class="line">[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+</span><br><span class="line">[]]+(![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[</span><br><span class="line">]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(</span><br><span class="line">!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!</span><br><span class="line">+[]+!+[]+[+[]]]+[+!+[]]+(!![]+[][(![]+[])[+[]</span><br><span class="line">]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!</span><br><span class="line">+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]</span><br><span class="line">+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]] <span class="comment">// ()+[]!</span></span><br></pre></td></tr></table></figure>
-<p> <a href="javascript:eval((![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]]+(![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]+[+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]])" target="_blank" rel="external">[Try this]</a></p>
-</li>
-</ul>
-<h1 id="Digital_Sheet_Music_Engraving">Digital Sheet Music Engraving</h1><p>Another thing I might talk about is our vision on the details of Digital Sheet Music engraving and how we deal with the difficulties of the available file-formats for sheet music.</p>
-<p>Thanks to neoScores, we can embed Sheet Music snippets into any other website. Just by adding 2 lines of HTML to you page:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">data-src</span>=<span class="value">"d708ae7fe6329ba3c987e275be815748"</span> <span class="attribute">class</span>=<span class="value">"neoscores-engraver"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"https://app.neoscores.com/api/1/plugin/neoscores.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>… which comes in handy to show the neoScores-variations of the examples Daniel Spreadbury is describing on his blog <a href="http://blog.steinberg.net/" target="_blank" rel="external">Making notes</a>. Here’s one to start with ;-)</p>
-<p><div data-src="d708ae7fe6329ba3c987e275be815748" class="neoscores-engraver" width="100%" height="250px" data-scale="1.2" style="margin: 0 !important;"></div></p>
-<script type="text/javascript" src="https://app.neoscores.com/api/1/plugin/neoscores.js"></script>
-
-<p><br><br>Cheers,</p>
-
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/Digital-Sheet-Music/">
-                #Digital Sheet Music
-              </a>
-            
-              <a href="/tags/Javascript/">
-                #Javascript
-              </a>
-            
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2015/04/12/welcome/">It's time to start blogging</a>
+              
+            </div>
           </div>
         
 
         
-
-        
-        
-          <div class="post-eof"></div>
         
       </div>
     
   </div>
 
 
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="disqus_thread">
+          <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+      
+    </div>
   
 
           </div>
@@ -329,6 +210,15 @@
 <div id="sidebar" class="sidebar">
   <div class="sidebar-inner">
 
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          Table Of Contents
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          Overview
+        </li>
+      </ul>
     
 
     <div class="site-overview">
@@ -384,6 +274,17 @@
 
     </div>
 
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Performance_issues_you_say?"><span class="nav-number">1.</span> <span class="nav-text">Performance issues you say?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10_seconds_vs_60_milliseconds!?_What_did_we_do_wrong?"><span class="nav-number">2.</span> <span class="nav-text">10 seconds vs 60 milliseconds!? What did we do wrong?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#So,_how_are_we_doing_things_now?"><span class="nav-number">3.</span> <span class="nav-text">So, how are we doing things now?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Any_caveats?"><span class="nav-number">4.</span> <span class="nav-text">Any caveats?</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
     
 
   </div>
@@ -589,6 +490,328 @@
 
 
   
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
 
   
 
@@ -603,14 +826,14 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'bhamblok';
-      var disqus_identifier = 'index.html';
-      var disqus_url = '';
+      var disqus_identifier = '2015/04/22/performance-of-prototyping-in-javascript/';
+      var disqus_url = 'http://bhamblok.io/2015/04/22/performance-of-prototyping-in-javascript/';
 
       (function(){
         var dsq = document.createElement('script');
         dsq.type = 'text/javascript';
         dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       }());
     </script>
