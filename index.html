@@ -150,7 +150,8 @@
 
         
           
-            <h1 id="Performance_issues_you_say?">Performance issues you say?</h1><p>Imagine you have a lot of things, each represented by a javascript object, all having the same behaviour but with different property-values.<br>Of course you should make a class-object of it, and instantiate it over and over again.</p>
+            <p>The post upnext might be obvious, we had our “DUH”-moments ourselves too, but here is something that can keep you from a lot of performance-issues…</p>
+<h1 id="Performance_issues???">Performance issues???</h1><p>Imagine you’re writing code where you have a lot of things, each represented by a javascript object, all having the same behaviour but with different property-values.<br>Of course you should make a class-object of it, and instantiate it over and over again.</p>
 <p>There are multiple ways to do this, but we recently discovered that <em>how</em> you do this, can make a <strong>HUGE</strong> difference. Just to mention, at neoScores, we reduced the time to calculate a full-blown orchestral score (comparable with a Mahler Symphony) from <strong>10 seconds per page</strong>, to only <strong>60 milliseconds(!!!) per page</strong>.<br>
             <div class="post-more-link text-center">
               <a class="btn" href="/2015/04/22/performance-of-prototyping-in-javascript/#more">
