@@ -20,9 +20,9 @@
 
 
 
-	<meta name="keywords" content="javascript," />
+	<meta name="keywords" content="AmpersandJS," />
 
-  <title> Performance of Prototyping in Javascript // bhamblok.io </title>
+  <title> When and why to use AmpersandJS // bhamblok.io </title>
 </head>
 
 <body>
@@ -95,7 +95,7 @@
           
           
             
-              Performance of Prototyping in Javascript
+              When and why to use AmpersandJS
             
           
         </h1>
@@ -104,7 +104,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            Posted on 2015-04-22
+            Posted on 2015-07-12
           
         </span>
 
@@ -116,8 +116,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/04/22/performance-of-prototyping-in-javascript/#comments" >
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/04/22/performance-of-prototyping-in-javascript/"></span>
+            <a href="/2015/07/12/When-and-why-to-use-AmpersandJS/#comments" >
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/12/When-and-why-to-use-AmpersandJS/"></span>
             </a>
           </span>
           
@@ -132,18 +132,61 @@
         
 
         
-          <p>The post upnext might be obvious, we had our “DUH”-moments ourselves too, but here is something that can keep you from a lot of performance-issues…</p>
-<h1 id="Performance_issues???">Performance issues???</h1><p>Imagine you’re writing code where you have a lot of things, each represented by a javascript object, all having the same behaviour but with different property-values.<br>Of course you should make a class-object of it, and instantiate it over and over again.</p>
-<p>There are multiple ways to do this, but we recently discovered that <em>how</em> you do this, can make a <strong>HUGE</strong> difference. Just to mention, at neoScores, we reduced the time to calculate a full-blown orchestral score (comparable with a Mahler Symphony) from <strong>10 seconds per page</strong>, to only <strong>60 milliseconds(!!!) per page</strong>.<br><a id="more"></a></p>
-<h1 id="10_seconds_vs_60_milliseconds!?_What_did_we_do_(wrong)?">10 seconds vs 60 milliseconds!? What did we do (wrong)?</h1><p>We used to make a class-object, with a lot of properties and methods, like this:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Define our Thingy CLASS-Object</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Thingy</span><span class="params">(props)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span><span class="params">(value)</span> </span>&#123;</span><br><span class="line">		i += value;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// lots and lots more methods</span></span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>And we Instantiate one new Thingy-Object for each of our requested thingies<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;allOurThingies.length; i++) </span><br><span class="line">	<span class="keyword">new</span> Thingy(thingies[i]);</span><br></pre></td></tr></table></figure></p>
-<p>Easy…, yes?<br>Well… Imagine we have a million thingies and we measure the time to run through our <em>“for-loop”</em>. That actually does take some time.<br>Let’s think a moment about this. Every instance of each one of our thingies, allocates some space available in our memory, so it can store all variables AND methods to run. Keep in mind that every method you declared inside your Class Object, also needs to allocate some memory space.</p>
-<h1 id="So,_how_are_we_doing_things_now?">So, how are we doing things now?</h1><p>We only need to define a Class Object with the bare minimum we need<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Define our minimal Thingy CLASS-Object</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Thingy</span><span class="params">(props)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>._i = <span class="number">0</span>;	<span class="comment">// make sure we already preserve the memory, needed for an integer, for this property</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>And we add our methods, but now we use <strong>prototyping</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Thingy.prototype.add = <span class="function"><span class="keyword">function</span><span class="params">(value)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>._i += value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Instantiate <em>that</em> for a million times and you’ll see we have a very, VERY, much cheaper script than we used to have. Check this <a href="http://jsperf.com/prototyping-classobjects" target="_blank" rel="external">jsperf</a><br>So, yes, we needed to “refactor” all our code to remove the inner methods of each of our Class Objects, and transform these methods into prototype-functions. FYI: this took us more or less just one week.</p>
-<h1 id="Any_caveats?">Any caveats?</h1><p>Yes… There are caveats. Like Douglas Crockford likes to call it in a beautifull wording: <em>“Privileged Functions”</em> … are not possible using this simple implementation of prototyping. “Privileged functions” is the reason why we used to work with the first method I described, we wanted <em>private vars</em> (or as close as we can get to this in the javascript-world).<br>When you instantiate a function in javascript, it gets it’s own new “scope” which means that a new variable in this new scope will not be known outside of this scope. That’s why you can call it a “private var”.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Thingy</span><span class="params">(props)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="string">'hello private world'</span>;</span><br><span class="line">	<span class="keyword">this</span>.y = <span class="string">'hello public world'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Thingy.prototype.speak = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(x); <span class="comment">// -&gt; undefined</span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.y); <span class="comment">// -&gt; 'hello public world'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> thing = <span class="keyword">new</span> Thingy();</span><br><span class="line">thing.speak();</span><br><span class="line"><span class="comment">// -&gt; undefined</span></span><br><span class="line"><span class="comment">// -&gt; 'hello public world'</span></span><br></pre></td></tr></table></figure></p>
-<p>This all gets realy interesting when you start combining this with getters and setters!!!<br>You say what!? That’s for my next blog…</p>
-<p>Meanwhile, enjoy reading:<br><a href="http://javascript.crockford.com/private.html" target="_blank" rel="external">http://javascript.crockford.com/private.html</a><br><a href="http://javascript.crockford.com/prototypal.html" target="_blank" rel="external">http://javascript.crockford.com/prototypal.html</a></p>
+          <p>To build the project I’ve been working on for quit some time, we’ve crossed a lot of deep seas in search of the ideal framework. The more frameworks we tried, the more often we started over again.</p>
+<p>At the start, we were convinced that a full-featured CMS-framework could serve all our needs. Several months later, we concluded that the only thing we were actually using, was the user-management part of the open-sourced bulky system. Everything else was custom build on top of this framework and … unfortunately … we had ourselved <em>“vendor-locked”</em> whith this open-source system.</p>
+<h2 id="Our_needs…">Our needs…</h2><p>We are working on a Web App which feels like a native app. Our app has a need for multiple pages. The content on some pages needs to react on user input or is dynamically generated based on some models. Other pages are lists of multiple models of certain types… And on top of all of this, everything needs to run offline.</p>
+<h3 id="1-_Multiple_pages_(a_Router)">1. Multiple pages (a Router)</h3><p>The absolute core-business our app needs to do, is to open up different pages, or as it’s called in the web-app-world: <strong><em>views</em></strong>.</p>
+<h3 id="2-_Models_and_Collections">2. Models and Collections</h3><p>Our app needs to show some stuff to user. In the case of <a href="https://app.neoscores.com" target="_blank" rel="external">neoScores</a>, we need to show a piece of Sheet Music. What is a score, a piece of Sheet Music? It’s a combination of a title, composer, copyrights, (…), and of course a bunch of staffs, notes, bars, accidentals and a lot, lot more. So we need to be able to bundle all these properties into something we can manage easily while being flexible to change some of the properties via some user input tools.<br>All of these properties together form our <strong>“Model”</strong>.</p>
+<p>On the other hand, we need to be able to list up all the scores for one user into the user’s library. The user needs to be able to make subsections of his library (“Playlist” or “Setlists”) or to change some properties of all our models together at once via some user input tools. A <strong>“Collection”</strong> is exactly what can do all of this.</p>
+<h3 id="3-_Offline_Use">3. Offline Use</h3><p>Our app is build on top of the concept off <strong>“Offline First”</strong> which means that LOCAL (in-browser) databases (<em>“indexDB”</em>,<em>“WebSQL”</em>,<em>“LocalStorage”</em>) must be addressed to look for the requested data, in combination with our ONLINE databases, to synchronise everything with the cloud, in real time, over multiple accounts, devices and platforms at once.</p>
+<h2 id="Object_Binding">Object Binding</h2><p>From the technical point of view, the thing that matters the most to enable doing all of this hrer above, is <em>“Object Binding”</em>. It would be realy … realy … convenient when our code simply updates the screen, just when some properties of some models are changed.</p>
+<p>So if the code changes the title of our score:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score.title = <span class="string">'My new title'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>… the screen (our view) updates itselve, with exactly <em>that</em> string that our variable (score.title) just has been given.</p>
+<p>Behind the screens, a lot needs to be done:</p>
+<ul>
+<li>you (as the developer) decides that at some point the value of a variable needs to be changed to ‘My new title’. (eg. when the database-request gives a response whith some new data)</li>
+<li>an event needs to be triggerd to tell your code “HEY, YOUR VARIABLE (score.title) HAS BEEN CHANGED”</li>
+<li>some other code needs to be listening to this “change-event”</li>
+<li>when this “other code” picks up the yealding of the event that <em>something has been changed</em>, it needs to update the browsers <em>DOM</em> with the new value.</li>
+</ul>
+<h2 id="Getters_and_Setters">Getters and Setters</h2><p>Look closely at the code-example above… it just says:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score.title = <span class="string">'My new title'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>… that’s it!!!!<br>You don’t need to learn syntaxes other developers tell you to.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// example for a Backbone-Model</span></span><br><span class="line">score.set(&#123;title:<span class="string">'My new title'</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>So, how the hell are all the events I talked about invoked???</p>
+<p>AmpersandJS does that for you using javascript getters and setters.<br>When you (being the developer) define your model (our score) as follows:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Score = Model.extend(&#123;</span><br><span class="line">	props: &#123;</span><br><span class="line">		title: <span class="string">'string'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>AmpersandJS will make a getter and a setter from the property ‘title’.<br>Basically as follows (dummy-code):<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">constructionOfMyScoreModel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>.prototype,<span class="string">'title'</span>,&#123;</span><br><span class="line">		get: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="comment">// run some magical code</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>.values.title;</span><br><span class="line">		&#125;,</span><br><span class="line">		set: <span class="function"><span class="keyword">function</span><span class="params">(value)</span> </span>&#123;</span><br><span class="line">			<span class="comment">// run some magical code</span></span><br><span class="line">			<span class="comment">// YIELDING CHANGE EVENTS happens here</span></span><br><span class="line">			<span class="keyword">this</span>.value.title = value;</span><br><span class="line">			<span class="keyword">return</span> value;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The only thing left is some other code, which is listening to the events being triggerd from the “setting” of the value of our “title”-property.<br>AmpersandJS of course has build it’s own little views-micro-framework on top of this, which binds the events of properties to the DOM.</p>
+<h2 id="What_about_Object-observe?">What about Object.observe?</h2><p>In future the javascript native feature of “Object.observe” is exactly what does all of this (and more), and it will be supported natively in all major browsers. But… it’s syntax is more complex and used in a big project, some sort of framework needs to be written arround it. AmpersandJS does it in an easy way, and probably will serve as a polyfill soon whenever your browser supports it.</p>
+<h2 id="The_good_part_of_AmpersandJS">The good part of AmpersandJS</h2><p>All the little pieces of code of AmpersandJS are build to do just one thing.</p>
+<ul>
+<li>creation of models (ampersand-state)</li>
+<li>creation of collections (of these models) (ampersand-collection)</li>
+<li>showing the models (or collections) via the DOM, and keep all values of all properties up to date in real time (ampersand-view)</li>
+<li>managing url’s to execute different code (ampersand-router)</li>
+<li>… code which visualises different views (ampersand-view-switcher)</li>
+</ul>
+<p>And you can require all of these little pieces of code: </p>
+<ul>
+<li>individually,</li>
+<li>whenever you need them,</li>
+<li>independantly from each other,</li>
+<li>independantly from other frameworks,</li>
+<li>mixed together with other frameworks,</li>
+<li>…</li>
+</ul>
+<p>… so you end up with a build-file which includes ONLY the code you actually use!!!</p>
+<blockquote>
+<h2 id="TL;DR">TL;DR</h2><p>When you start building a new project, lot’s of the time you start scafolding multiple (micro-) frameworks together and end up with a lot of custom scripts to bind one and another together. This often leads to your own bootstrapping-code which more and more becomes to grow and start looking as <strong>your own framework</strong>. </p>
+<p>If this sounds familiar, have a look at AmpersandJS.<br>It’s:</p>
+<ul>
+<li>Lightweight</li>
+<li>Performant</li>
+<li>Easy to learn</li>
+<li>Selfexplenatory</li>
+<li>Independant but compatible with any other frameworks</li>
+<li>Opensource and easily accessible to start your own contribution</li>
+</ul>
+<p>AmpersandJS gives you the standard concepts of the other big frameworks like Angular or Backbone (<em>Models</em>, <em>Collections</em> and <em>Views</em>), but it’s all conceived as a combination of micro-frameworks. In other words, you only need to require just that little bit of code you actually use, without having to include a bulky, fully fledged, big ass framework, filled with features you’ll never use.</p>
+</blockquote>
 
         
       </div>
@@ -154,8 +197,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/javascript/">
-                #javascript
+              <a href="/tags/AmpersandJS/">
+                #AmpersandJS
               </a>
             
           </div>
@@ -165,13 +208,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2015/07/12/When-and-why-to-use-AmpersandJS/">When and why to use AmpersandJS</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2015/04/12/welcome/">It's time to start blogging</a>
+                <a href="/2015/04/22/performance-of-prototyping-in-javascript/">Performance of Prototyping in Javascript</a>
               
             </div>
           </div>
@@ -282,7 +323,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Performance_issues???"><span class="nav-number">1.</span> <span class="nav-text">Performance issues???</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10_seconds_vs_60_milliseconds!?_What_did_we_do_(wrong)?"><span class="nav-number">2.</span> <span class="nav-text">10 seconds vs 60 milliseconds!? What did we do (wrong)?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#So,_how_are_we_doing_things_now?"><span class="nav-number">3.</span> <span class="nav-text">So, how are we doing things now?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Any_caveats?"><span class="nav-number">4.</span> <span class="nav-text">Any caveats?</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Our_needs…"><span class="nav-number">1.</span> <span class="nav-text">Our needs…</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_Multiple_pages_(a_Router)"><span class="nav-number">1.1.</span> <span class="nav-text">1. Multiple pages (a Router)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_Models_and_Collections"><span class="nav-number">1.2.</span> <span class="nav-text">2. Models and Collections</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_Offline_Use"><span class="nav-number">1.3.</span> <span class="nav-text">3. Offline Use</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object_Binding"><span class="nav-number">2.</span> <span class="nav-text">Object Binding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Getters_and_Setters"><span class="nav-number">3.</span> <span class="nav-text">Getters and Setters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What_about_Object-observe?"><span class="nav-number">4.</span> <span class="nav-text">What about Object.observe?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The_good_part_of_AmpersandJS"><span class="nav-number">5.</span> <span class="nav-text">The good part of AmpersandJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TL;DR"><span class="nav-number">6.</span> <span class="nav-text">TL;DR</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -828,8 +869,8 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'bhamblok';
-      var disqus_identifier = '2015/04/22/performance-of-prototyping-in-javascript/';
-      var disqus_url = 'http://bhamblok.io/2015/04/22/performance-of-prototyping-in-javascript/';
+      var disqus_identifier = '2015/07/12/When-and-why-to-use-AmpersandJS/';
+      var disqus_url = 'http://bhamblok.io/2015/07/12/When-and-why-to-use-AmpersandJS/';
 
       (function(){
         var dsq = document.createElement('script');
