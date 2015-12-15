@@ -2112,3 +2112,7 @@ hr {
   -o-tab-size: 2;
   tab-size: 2;
 }
+neoscores-engraver {
+  display: block;
+  height: 250px;
+}
