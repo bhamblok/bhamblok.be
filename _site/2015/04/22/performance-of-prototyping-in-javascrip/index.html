@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Performance Of Prototyping In Javascrip</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600">
+  <link rel="stylesheet" href="/style.css">
+  </head>
+<body>
+  <div class="container">
+    <header class="masthead">
+  <h1 class="masthead-title--small">
+    <a href="/">bhamblok</a>
+  </h1>
+</header>      
+<div class="content post">
+  <h1 class="post-title">Performance Of Prototyping In Javascrip</h1>
+  <div class="post-date">
+    <time>22 Apr 2015</time>
+  </div>
+  <h2>2015-04-22-performance-of-prototyping-in-javascript.md</h2>
+
+<h2>title: Performance of Prototyping in Javascript</h2>
+
+<p>The post upnext might be obvious, we had our "DUH"-moments ourselves too, but here is something that can keep you from a lot of performance-issues...</p>
+
+<h1>Performance issues???</h1>
+
+<p>Imagine you're writing code where you have a lot of things, each represented by a javascript object, all having the same behaviour but with different property-values.
+Of course you should make a class-object of it, and instantiate it over and over again.</p>
+
+<p>There are multiple ways to do this, but we recently discovered that <em>how</em> you do this, can make a <strong>HUGE</strong> difference. Just to mention, at neoScores, we reduced the time to calculate a full-blown orchestral score (comparable with a Mahler Symphony) from <strong>10 seconds per page</strong>, to only <strong>60 milliseconds(!!!) per page</strong>.</p>
+
+<h1>10 seconds vs 60 milliseconds!? What did we do (wrong)?</h1>
+
+<p>We used to make a class-object, with a lot of properties and methods, like this:</p>
+
+<p><figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Define our Thingy CLASS-Object</span>
+<span class="kd">function</span> <span class="nx">Thingy</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">+=</span> <span class="nx">value</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// lots and lots more methods</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span></code></pre></figure></p>
+
+<p>And we Instantiate one new Thingy-Object for each of our requested thingies</p>
+
+<p><figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">allOurThingies</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="k">new</span> <span class="nx">Thingy</span><span class="p">(</span><span class="nx">thingies</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span></code></pre></figure></p>
+
+<p>Easy..., yes?
+Well... Imagine we have a million thingies and we measure the time to run through our <em>"for-loop"</em>. That actually does take some time.
+Let's think a moment about this. Every instance of each one of our thingies, allocates some space available in our memory, so it can store all variables AND methods to run. Keep in mind that every method you declared inside your Class Object, also needs to allocate some memory space.</p>
+
+<h1>So, how are we doing things now?</h1>
+
+<p>We only need to define a Class Object with the bare minimum we need</p>
+
+<p><figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Define our minimal Thingy CLASS-Object</span>
+<span class="kd">function</span> <span class="nx">Thingy</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// make sure we already preserve the memory, needed for an integer, for this property</span>
+<span class="p">}</span></code></pre></figure></p>
+
+<p>And we add our methods, but now we use <strong>prototyping</strong></p>
+
+<p><figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">Thingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_i</span> <span class="o">+=</span> <span class="nx">value</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></p>
+
+<p>Instantiate <em>that</em> for a million times and you'll see we have a very, VERY, much cheaper script than we used to have. Check this <a href="http://jsperf.com/prototyping-classobjects">jsperf</a>
+So, yes, we needed to "refactor" all our code to remove the inner methods of each of our Class Objects, and transform these methods into prototype-functions. FYI: this took us more or less just one week.</p>
+
+<h1>Any caveats?</h1>
+
+<p>Yes... There are caveats. Like Douglas Crockford likes to call it in a beautifull wording: <em>"Privileged Functions"</em> ... are not possible using this simple implementation of prototyping. "Privileged functions" is the reason why we used to work with the first method I described, we wanted <em>private vars</em> (or as close as we can get to this in the javascript-world).
+When you instantiate a function in javascript, it gets it's own new "scope" which means that a new variable in this new scope will not be known outside of this scope. That's why you can call it a "private var".</p>
+
+<p><figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">Thingy</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="s1">'hello private world'</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="s1">'hello public world'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">Thingy</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">speak</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// -&gt; undefined</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span> <span class="c1">// -&gt; 'hello public world'</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Thingy</span><span class="p">();</span>
+<span class="nx">thing</span><span class="p">.</span><span class="nx">speak</span><span class="p">();</span>
+<span class="c1">// -&gt; undefined</span>
+<span class="c1">// -&gt; 'hello public world'</span></code></pre></figure></p>
+
+<p>This all gets realy interesting when you start combining this with getters and setters!!!
+You say what!? That's for my next blog...</p>
+
+<p>Meanwhile, enjoy reading:<br/>
+<a href="http://javascript.crockford.com/private.html">http://javascript.crockford.com/private.html</a>
+<a href="http://javascript.crockford.com/prototypal.html">http://javascript.crockford.com/prototypal.html</a></p>
+
+</div>
+
+  </div>
+</body>
+</html>
