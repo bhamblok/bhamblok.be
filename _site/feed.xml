@@ -139,21 +139,17 @@ If you like to read more about &quot;Why you should use Ampersand.js&quot;, read
 			</item>
 		
 			<item>
-				<title>Performance Of Prototyping In Javascrip</title>
-        <description>&lt;h2&gt;2015-04-22-performance-of-prototyping-in-javascript.md&lt;/h2&gt;
+				<title>Performance of Prototyping in Javascript</title>
+        <description>&lt;p&gt;The post upnext might be obvious, we had our &quot;DUH&quot;-moments ourselves too, but here is something that can keep you from a lot of performance-issues...&lt;/p&gt;
 
-&lt;h2&gt;title: Performance of Prototyping in Javascript&lt;/h2&gt;
-
-&lt;p&gt;The post upnext might be obvious, we had our &quot;DUH&quot;-moments ourselves too, but here is something that can keep you from a lot of performance-issues...&lt;/p&gt;
-
-&lt;h1&gt;Performance issues???&lt;/h1&gt;
+&lt;h2&gt;Performance issues???&lt;/h2&gt;
 
 &lt;p&gt;Imagine you&#39;re writing code where you have a lot of things, each represented by a javascript object, all having the same behaviour but with different property-values.
 Of course you should make a class-object of it, and instantiate it over and over again.&lt;/p&gt;
 
 &lt;p&gt;There are multiple ways to do this, but we recently discovered that &lt;em&gt;how&lt;/em&gt; you do this, can make a &lt;strong&gt;HUGE&lt;/strong&gt; difference. Just to mention, at neoScores, we reduced the time to calculate a full-blown orchestral score (comparable with a Mahler Symphony) from &lt;strong&gt;10 seconds per page&lt;/strong&gt;, to only &lt;strong&gt;60 milliseconds(!!!) per page&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;h1&gt;10 seconds vs 60 milliseconds!? What did we do (wrong)?&lt;/h1&gt;
+&lt;h2&gt;10 seconds vs 60 milliseconds!? What did we do (wrong)?&lt;/h2&gt;
 
 &lt;p&gt;We used to make a class-object, with a lot of properties and methods, like this:&lt;/p&gt;
 
@@ -176,7 +172,7 @@ Of course you should make a class-object of it, and instantiate it over and over
 Well... Imagine we have a million thingies and we measure the time to run through our &lt;em&gt;&quot;for-loop&quot;&lt;/em&gt;. That actually does take some time.
 Let&#39;s think a moment about this. Every instance of each one of our thingies, allocates some space available in our memory, so it can store all variables AND methods to run. Keep in mind that every method you declared inside your Class Object, also needs to allocate some memory space.&lt;/p&gt;
 
-&lt;h1&gt;So, how are we doing things now?&lt;/h1&gt;
+&lt;h2&gt;So, how are we doing things now?&lt;/h2&gt;
 
 &lt;p&gt;We only need to define a Class Object with the bare minimum we need&lt;/p&gt;
 
@@ -194,7 +190,7 @@ Let&#39;s think a moment about this. Every instance of each one of our thingies,
 &lt;p&gt;Instantiate &lt;em&gt;that&lt;/em&gt; for a million times and you&#39;ll see we have a very, VERY, much cheaper script than we used to have. Check this &lt;a href=&quot;http://jsperf.com/prototyping-classobjects&quot;&gt;jsperf&lt;/a&gt;
 So, yes, we needed to &quot;refactor&quot; all our code to remove the inner methods of each of our Class Objects, and transform these methods into prototype-functions. FYI: this took us more or less just one week.&lt;/p&gt;
 
-&lt;h1&gt;Any caveats?&lt;/h1&gt;
+&lt;h2&gt;Any caveats?&lt;/h2&gt;
 
 &lt;p&gt;Yes... There are caveats. Like Douglas Crockford likes to call it in a beautifull wording: &lt;em&gt;&quot;Privileged Functions&quot;&lt;/em&gt; ... are not possible using this simple implementation of prototyping. &quot;Privileged functions&quot; is the reason why we used to work with the first method I described, we wanted &lt;em&gt;private vars&lt;/em&gt; (or as close as we can get to this in the javascript-world).
 When you instantiate a function in javascript, it gets it&#39;s own new &quot;scope&quot; which means that a new variable in this new scope will not be known outside of this scope. That&#39;s why you can call it a &quot;private var&quot;.&lt;/p&gt;
@@ -240,10 +236,7 @@ You say what!? That&#39;s for my next blog...&lt;/p&gt;
 
 &lt;p&gt;The gap between &quot;Native apps&quot; and &quot;Web apps&quot; is gone! Our friends at &lt;a href=&quot;https://andyet.com/&quot;&gt;&amp;amp;yet&lt;/a&gt; are evangelising it as &lt;a href=&quot;http://blog.andyet.com/2015/01/22/native-web-apps#native-web-apps&quot;&gt;&quot;Native Web Apps&quot; (http://blog.andyet.com)&lt;/a&gt;&lt;/p&gt;
 
-&lt;!-- more --&gt;
-
-
-&lt;h1&gt;Javascript&lt;/h1&gt;
+&lt;h2&gt;Javascript&lt;/h2&gt;
 
 &lt;p&gt;I&#39;m starting this blog because I think I can share a lot of interesting javascript-knowledge about
  - browser performance,
@@ -267,7 +260,7 @@ You say what!? That&#39;s for my next blog...&lt;/p&gt;
 
 &lt;p&gt;  &lt;a href=&quot;javascript:eval((![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]]+(![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]+[+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]])&quot;&gt;[Try this]&lt;/a&gt;&lt;/p&gt;
 
-&lt;h1&gt;Digital Sheet Music Engraving&lt;/h1&gt;
+&lt;h2&gt;Digital Sheet Music Engraving&lt;/h2&gt;
 
 &lt;p&gt;Another thing I might talk about is our vision on the details of Digital Sheet Music engraving and how we deal with the difficulties of the available file-formats for sheet music.&lt;/p&gt;
 
