@@ -10,6 +10,31 @@ layout: default
   <h1 class="post-title">{{ page.title }}</h1>
   <div class="post-date">
     <time>{{ page.date | date_to_string }}</time>
+
+    <span class="post-comments-count">
+      &nbsp; &nbsp;
+      <a href="/2015/04/22/performance-of-prototyping-in-javascript/#comments" >
+        <span class="post-comments-count disqus-comment-count" data-disqus-identifier="{{ page.url }}"></span>
+      </a>
+    </span>
   </div>
   {{ content }}
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </div>
 </div>
+
+<script type="text/javascript">
+  var disqus_shortname = 'bhamblok';
+  var disqus_identifier = '{{ page.url }}';
+  var disqus_url = 'http://bhamblok.io/{{ page.url }}';
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  }());
+</script>  
