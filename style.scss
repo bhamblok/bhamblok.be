@@ -3,6 +3,7 @@
 
 $lightgrey: #f9f9f9;
 $fontcolor: #333;
+$fontcolor2: #666;
 $bordercolor: #eee;
 $linkcolor: #8b0;
 
@@ -393,7 +394,7 @@ tbody tr:nth-child(odd) th {
     margin-bottom: .25rem;
     
     a {
-      color: $fontcolor;
+      color: $fontcolor2;
       
       &:hover,
       &:focus {
@@ -410,7 +411,7 @@ tbody tr:nth-child(odd) th {
 
 .projects-list {
   a {
-    color: $fontcolor;
+    color: $fontcolor2;
   }
 }
 
