@@ -51,6 +51,11 @@ body {
   text-align: center;  
 }
 
+hr {
+  border: none;
+  border-top: 1px solid $bordercolor;
+}
+
 a {
   color: $linkcolor;
   text-decoration: none;
