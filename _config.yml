@@ -12,6 +12,8 @@ permalink:          /:year/:month/:day/:title/
 # Markdown
 markdown:           rdiscount
 
+port:               8888
+
 # Navigation
 nav:
   - name:           "Home"

@@ -3,6 +3,12 @@ title: About
 permalink: /about/
 ---
 
+<span class="avatar" style='background-image: url("https://www.gravatar.com/avatar/64bfabdc320d8948a1738ad6f79e9fc8?s=150");'></span>
+<span class="contact">
+Bob Hamblok  
+bob@neoscores.com
+</span>
+
 ## Howdy!
 
     * engaged
