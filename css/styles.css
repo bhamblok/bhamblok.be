@@ -69,3 +69,13 @@ main > .tagline {
 	width: 2.65rem;
 	height: 2.65rem;
 }
+
+a {
+	color: black;
+	text-decoration: underline;
+}
+
+img {
+	border-radius: 50%;
+	border: 1px solid black;
+}
